@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root {
+    --melon: #FF3860;
+    --melon-deep: #E83152;
+    --melon-light: #FFF0F3;
+    --melon-glow: rgba(255, 56, 96, 0.12);
+    --rind: #2DD4A8;
+    --rind-deep: #1DA87A;
+    --bg: #FFFBFC;
+    --card-bg: #FFFFFF;
+    --text: #2D2426;
+    --text-dim: #A8989C;
+    --border: #F0E6E8;
+    --radius: 14px;
+    --radius-sm: 10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    width: 310px;
+    font-family: "PingFang SC", "Microsoft YaHei", -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 20px;
+    position: relative;
+  }
+
+  /* 顶部渐变装饰条 */
+  body::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--melon), var(--melon-deep), var(--rind));
+    z-index: 2;
+  }
+
+  /* 头部 */
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .logo {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--rind) 0%, var(--rind-deep) 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    box-shadow: 0 3px 12px rgba(45,212,168,0.25);
+  }
+  .brand { font-size: 16px; font-weight: 700; letter-spacing: 0.5px; }
+  .brand span { color: var(--melon); }
+  .subtitle { font-size: 10px; color: var(--text-dim); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 1px; }
+
+  /* 卡片 */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.03);
+  }
+
+  .section {
+    display: block;
+    font-size: 11px; font-weight: 600;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  textarea, input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    background: #FFFBFC;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 13px; color: var(--text);
+    font-family: "SF Mono", "Cascadia Code", "PingFang SC", "Microsoft YaHei", monospace;
+    resize: vertical;
+    transition: all 0.2s ease;
+    outline: none;
+    line-height: 1.6;
+  }
+  textarea { height: 92px; margin-bottom: 4px; }
+  textarea:focus, input[type="text"]:focus {
+    border-color: var(--melon);
+    box-shadow: 0 0 0 3px var(--melon-glow);
+    background: #FFF;
+  }
+  textarea::placeholder, input::placeholder { color: #D8CCCF; }
+
+  .hint {
+    font-size: 10px; color: #D0C4C7;
+    margin-bottom: 6px;
+  }
+  .filename-row { margin-top: 12px; }
+
+  /* 按钮 */
+  .btn {
+    width: 100%; margin-top: 14px;
+    padding: 11px;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 14px; font-weight: 700; letter-spacing: 1px;
+    position: relative; overflow: hidden;
+    transition: all 0.25s ease;
+    outline: none;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--melon) 0%, var(--melon-deep) 100%);
+    color: #fff;
+    box-shadow: 0 4px 18px rgba(255,56,96,0.25);
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+  }
+  .btn-primary:hover::after { transform: translateX(100%); }
+  .btn-primary:hover {
+    box-shadow: 0 6px 24px rgba(255,56,96,0.35);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active { transform: translateY(0) scale(0.98); }
+  .btn-primary:disabled {
+    background: #F5E8EB; color: #C8B4B8;
+    box-shadow: none; cursor: not-allowed; transform: none;
+  }
+  .btn-primary:disabled::after { display: none; }
+
+  /* 微动效 */
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+  }
+  .logo { animation: float 4s ease-in-out infinite; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">🍉</div>
+  <div>
+    <div class="brand">飞瓜<span>大盘</span>数据采集</div>
+    <div class="subtitle">Feigua Market Collector</div>
+  </div>
+</div>
+
+<div class="card">
+  <label class="section">类目路径</label>
+  <textarea id="paths" placeholder="个护家清&#10;美妆&#10;母婴宠物 > 母婴用品">个护家清
+美妆
+母婴宠物 > 母婴用品</textarea>
+  <div class="hint">每行一条 · > 分隔层级</div>
+
+  <div class="filename-row">
+    <label class="section">文件名称</label>
+    <input id="filename" type="text" value="飞瓜数据">
+  </div>
+</div>
+
+<button id="start-btn" class="btn btn-primary">▶ 开始遍历</button>
+
+<script src="popup.js"></script>
+</body>
+</html>

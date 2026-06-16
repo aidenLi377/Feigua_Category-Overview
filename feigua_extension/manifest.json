@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "飞瓜大盘数据采集",
+  "version": "1.0",
+  "description": "自动遍历飞瓜大数据平台类目树，采集销售额、销量、直播/视频数据并实时导出",
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": ["https://www.bigdatavoice.com/*", "https://dy.feigua.cn/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "飞瓜大盘数据采集",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}
